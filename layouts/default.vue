@@ -1,52 +1,18 @@
-<template>
-  <div>
-    <nuxt/>
-  </div>
+<template lang="pug">
+  div
+    b-navbar(type="dark" toggleable="md" variant="secondary" sticky="true")
+      b-nav-toggle(target="nav_collapse")
+      b-navbar-brand(href="#") Ryths
+      b-collapse(is-nav id="nav_collapse")
+        b-nav(is-nav-bar)
+          b-nav-item(to="#") 文章
+          b-nav-item(to="#") 分类
+        b-nav.ml-auto(is-nav-bar)
+          b-nav-form
+            b-input-group
+              b-form-input.mr-sm-2(size="sm" type="text" placeholder="Search")
+              b-btn.my-2.my-sm-0(variant="outline-success" type="submit") 搜索
+          b-nav-item(right to="#") 登录
+          b-nav-item(right to="#") 注册
+    nuxt
 </template>
-
-<style>
-html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
-</style>
