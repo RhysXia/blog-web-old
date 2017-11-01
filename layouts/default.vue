@@ -91,6 +91,7 @@
     .main
       padding-top 1rem
       margin auto 5% !important
+      padding-bottom 1rem
       .label
         display inline-block
         background-color #ddd

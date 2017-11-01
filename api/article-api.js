@@ -40,4 +40,15 @@ article.getArticles = (currentPage, pageSize, includeCategory = false, includeAu
   })
 }
 
+article.getArticleById = (id, includeContent = false, includeCategory = false, includeAuthor = false) => {
+  return http.get('/articles/' + id, {
+    params: {
+      includeCategory,
+      includeAuthor,
+      includeContent
+    }
+  })
+}
+
+
 export default article
