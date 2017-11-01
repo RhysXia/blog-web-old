@@ -13,8 +13,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nuxtjs/bootstrap-vue": "^2.0.2",
     "axios": "^0.17.0",
+    "element-ui": "^2.0.2",
+    "iview": "^2.6.0",
     "nuxt": "^1.0.0-rc11"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 module.exports = {
-  modules: [
-    ['@nuxtjs/bootstrap-vue']
+  plugins: [
+    {src: '~/plugins/iview', ssr: true}
   ],
   /*
   ** Headers of the page
