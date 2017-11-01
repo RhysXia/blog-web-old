@@ -26,12 +26,15 @@
         Avatar(shape="square",size="large",:src="comment.author.avatar")
         .right
           .top
-
             .nickname {{comment.author.nickname}}
           .content {{comment.content}}
           .bottom
-            .date {{comment.createDate}}
-            .reply 回复
+            .date
+              Icon(type="ios-clock",size="14")
+              |{{comment.createDate}}
+            .reply
+              Icon(type="reply",size="14")
+              |回复
 
 </template>
 <script>
@@ -137,6 +140,8 @@
             font-size 14px
           .bottom
             margin-bottom 0
+            i
+              padding-right 5px
 
 
 </style>

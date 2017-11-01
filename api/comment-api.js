@@ -14,5 +14,4 @@ comment.getCommentsByArticleId = (articleId, currentPage, pageSize, includeAutho
     }
   })
 }
-
 export default comment

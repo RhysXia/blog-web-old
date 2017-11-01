@@ -1,9 +1,9 @@
 <template lang="pug">
   .list
     r-article(v-for="(article,index) in articles",:key="index",:article="article")
-    .hasmore.panel(v-show="hasMore && !isLoading",@click="loadMore") 加载更多
-    .nomore.panel(v-show="!hasMore") 没有更多
-    .loading.panel(v-show="hasMore && isLoading")
+    .hasmore.panel(v-if="hasMore && !isLoading",@click="loadMore") 加载更多
+    .nomore.panel(v-if="!hasMore") 没有更多
+    .loading.panel(v-if="hasMore && isLoading")
       Icon.icon-loading(type="load-c" size=18)
       span Loading
 </template>
@@ -45,10 +45,15 @@
 </script>
 <style lang="stylus" scoped>
   .list
+    >*
+      margin 1rem 0
+      &:first-child
+        margin-top 0
+      &:last-child
+        margin-bottom 0
     .panel
       padding 5px
       text-align center
-      margin-bottom 10px
       border-radius 5px
       font-size 14px
     .hasmore

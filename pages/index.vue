@@ -5,7 +5,7 @@
         nuxt-link.carousel-item(:to="'/articles/'+article.id")
           span.title {{article.title}}
           img.image(:src="article.poster")
-    ArticleList(:hasMore="hasMore",:articles="articles",v-model="isLoading",@on-load="onLoad")
+    ArticleList.article-list(:hasMore="hasMore",:articles="articles",v-model="isLoading",@on-load="onLoad")
 
 </template>
 
@@ -90,4 +90,6 @@
       background-color rgba(0, 0, 0, 0.15)
       padding 5px 10px
       border-radius 3px
+  .article-list
+    margin-top 1rem
 </style>

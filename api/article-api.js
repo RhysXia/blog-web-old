@@ -54,4 +54,16 @@ article.checkPraise = (articleId) => {
   return http.get(`/articles/${articleId}/isPraise`)
 }
 
+article.getArticlesByCategoryId = (categoryId, currentPage, pageSize, includeCategory = false, includeAuthor = false, includeContent = false, orderBy = 'updateDate:DESC') => {
+  return http.get(`/categories/${categoryId}/articles`, {
+    params: {
+      currentPage,
+      pageSize,
+      includeCategory,
+      includeAuthor,
+      includeContent,
+      orderBy
+    }
+  })
+}
 export default article

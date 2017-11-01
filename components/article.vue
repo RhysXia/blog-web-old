@@ -16,7 +16,7 @@
         .praise
           Icon(type="ios-heart")
           span.tag {{article.praiseNum}}
-        .category
+        .category(v-if="article.category != null")
           Icon(type="ios-pricetag")
           span.tag
             nuxt-link(:to="'categories/'+article.category.id") {{article.category.name}}
@@ -42,8 +42,6 @@
     display flex
     flex-direction row
     background-color #FFF
-    margin-top 1rem
-    margin-bottom 1rem
     padding 0.5rem
     a
       color #000
