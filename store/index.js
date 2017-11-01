@@ -13,3 +13,16 @@ export const actions = {
     }
   }
 }
+
+export const state = () => ({
+  token: ''
+})
+
+export const mutations = {
+  updateToken (state, token) {
+    state.token = token
+  },
+  deleteToken () {
+    state.token = ''
+  }
+}
