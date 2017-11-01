@@ -2,7 +2,7 @@
   .index
     Carousel(:height="230",v-model="index",loop,autoplay,trigger="click")
       CarouselItem(v-for="(article,index) in recommendations",:key="index")
-        nuxt-link.carousel-item(:to="'articles/'+article.id")
+        nuxt-link.carousel-item(:to="'/articles/'+article.id")
           span.title {{article.title}}
           img.image(:src="article.poster")
     ArticleList(:hasMore="hasMore",:articles="articles",v-model="isLoading",@on-load="onLoad")
@@ -75,6 +75,8 @@
   .carousel-item
     position relative
     display block
+    width inherit
+    height inherit
     .image
       background-size cover
       height inherit

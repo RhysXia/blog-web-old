@@ -15,14 +15,14 @@
         Affix(:offset-top="55")
           Menu(width="auto",@on-select="onSelect",:active-name="activeName")
             MenuItem(name="/") 首页
-            MenuItem(name="categories") 分类
+            MenuItem(name="/categories") 分类
       Col(:md="12",:sm="18")
         nuxt
       Col(:md="6",:sm="0")
         Affix(:offset-top="55")
           Menu(width="auto",@on-select="onSelect",:active-name="activeName")
             MenuGroup(title="热门推荐")
-              MenuItem(v-for="(article,index) in hotArticles",:key="index",:name="'articles/'+article.id")
+              MenuItem(v-for="(article,index) in hotArticles",:key="index",:name="'/articles/'+article.id")
                 span.label {{index+1}}
                 | {{article.title}}
     .footer

@@ -50,5 +50,8 @@ article.getArticleById = (id, includeContent = false, includeCategory = false, i
   })
 }
 
+article.checkPraise = (articleId) => {
+  return http.get(`/articles/${articleId}/isPraise`)
+}
 
 export default article
