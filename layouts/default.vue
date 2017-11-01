@@ -33,6 +33,8 @@
 <script>
   import Nuxt from '../.nuxt/components/nuxt.vue'
   import NuxtLink from '../.nuxt/components/nuxt-link'
+  import StoreUtills from '~/utils/store'
+  import UserApi from '~/api/user-api'
 
   export default {
     components: {
@@ -55,6 +57,26 @@
       }
     },
     mounted () {
+      // 检测store中是否有token,如果没有，从localstorage中取
+      let token = this.$store.state.token
+      if (!token) {
+        // 检查localStorage中是否有token，如果有，向服务器校验token正确性，通过则放入store中
+        token = StoreUtills.get('ryths-token')
+        if (token) {
+          UserApi.checkToken(token).then(res => {
+            console.log(res)
+            if (res.data.code === 0) {
+              if (res.data.data) {
+                this.$store.commit('updateToken', token)
+              } else {
+                // token校验失败，则清除localstorage中的token
+                StoreUtills.delete('ryths-token')
+              }
+            }
+          })
+        }
+      }
+      // 设置激活的菜单
       this.activeName = this.$route.fullPath
     }
   }

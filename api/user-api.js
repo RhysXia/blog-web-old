@@ -8,4 +8,9 @@ user.login = (username, password) => {
     password
   })
 }
+user.checkToken = token => {
+  return http.post('/token/check', {
+    token
+  })
+}
 export default user
