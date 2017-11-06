@@ -1,68 +1,27 @@
 import http from './http'
 
 const article = {}
-article.getHotArticles = (currentPage, pageSize, includeCategory = false, includeAuthor = false, includeContent = false, orderBy = 'updateDate:DESC') => {
-  return http.get('/articles/hot', {
-    params: {
-      currentPage,
-      pageSize,
-      includeCategory,
-      includeAuthor,
-      includeContent,
-      orderBy
-    }
-  })
-}
 
-article.getRecomArticles = (currentPage, pageSize, includeCategory = false, includeAuthor = false, includeContent = false, orderBy = 'updateDate:DESC') => {
-  return http.get('/articles/recommendation', {
-    params: {
-      currentPage,
-      pageSize,
-      includeCategory,
-      includeAuthor,
-      includeContent,
-      orderBy
-    }
-  })
-}
-
-article.getArticles = (currentPage, pageSize, includeCategory = false, includeAuthor = false, includeContent = false, orderBy = 'updateDate:DESC') => {
+article.getArticles = (page, size, sort = null) => {
   return http.get('/articles', {
     params: {
-      currentPage,
-      pageSize,
-      includeCategory,
-      includeAuthor,
-      includeContent,
-      orderBy
+      page,
+      size,
+      sort
     }
   })
 }
 
-article.getArticleById = (id, includeContent = false, includeCategory = false, includeAuthor = false) => {
-  return http.get('/articles/' + id, {
-    params: {
-      includeCategory,
-      includeAuthor,
-      includeContent
-    }
-  })
+article.getArticleById = (id) => {
+  return http.get('/articles/' + id)
 }
 
-article.checkPraise = (articleId) => {
-  return http.get(`/articles/${articleId}/isPraise`)
-}
-
-article.getArticlesByCategoryId = (categoryId, currentPage, pageSize, includeCategory = false, includeAuthor = false, includeContent = false, orderBy = 'updateDate:DESC') => {
-  return http.get(`/categories/${categoryId}/articles`, {
+article.getArticlesByTagId = (tagId, page, size, sort = null) => {
+  return http.get(`/tags/${tagId}/articles`, {
     params: {
-      currentPage,
-      pageSize,
-      includeCategory,
-      includeAuthor,
-      includeContent,
-      orderBy
+      page,
+      size,
+      sort
     }
   })
 }

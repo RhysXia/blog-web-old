@@ -2,24 +2,24 @@
   .category-container
     h2.title 所有分类
     .list
-        Card.category(v-for="(category,index) in categories",:key="index")
-          nuxt-link.name(slot="title",:to="'/categories/'+category.id") {{category.name}}
-          .desc {{category.description}}
+        Card.category(v-for="(tag,index) in tags",:key="index")
+          nuxt-link.name(slot="title",:to="'/tags/'+tag.id") {{tag.name}}
+          .desc {{tag.description}}
 
 </template>
 <script>
-  import CategoryApi from '~/api/category-api'
+  import TagApi from '~/api/tag-api'
   import ArticleList from '~/components/article-list'
   import NuxtLink from '../../.nuxt/components/nuxt-link'
 
   export default {
     async asyncData () {
       const data = {}
-      await CategoryApi.getCategories().then(res => {
+      await TagApi.getTags().then(res => {
         if (res.data.code === 0) {
-          data.categories = res.data.data
+          data.tags = res.data.result.data
         } else {
-          data.categories = []
+          data.tags = []
         }
       })
       return data

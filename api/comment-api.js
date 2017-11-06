@@ -2,15 +2,12 @@ import http from './http'
 
 const comment = {}
 
-comment.getCommentsByArticleId = (articleId, currentPage, pageSize, includeAuthor = false, includeReply = false, orderBy = 'createDate:DESC', includeArticle = false) => {
+comment.getCommentsByArticleId = (articleId, page, size, sort = null) => {
   return http.get(`/articles/${articleId}/comments`, {
     params: {
-      currentPage,
-      pageSize,
-      includeAuthor,
-      includeReply,
-      includeArticle,
-      orderBy
+      page,
+      size,
+      sort
     }
   })
 }

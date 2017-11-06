@@ -9,17 +9,17 @@
       .info
         .data
           Icon(type="ios-clock")
-          span.tag {{article.updateDate}}
+          span.label {{article.updateDate}}
         .read
           Icon(type="ios-book")
-          span.tag {{article.readNum}}
+          span.label {{article.readNum}}
         .praise
           Icon(type="ios-heart")
-          span.tag {{article.praiseNum}}
-        .category(v-if="article.category != null")
+          span.label {{article.praiseNum}}
+        .tag(v-if="article.tags != null")
           Icon(type="ios-pricetag")
-          span.tag
-            nuxt-link(:to="'categories/'+article.category.id") {{article.category.name}}
+          span.label(v-for="(tag,index) in article.tags",:key="index")
+            nuxt-link(:to="'tags/'+tag.id") {{tag.name}}
 
 </template>
 
@@ -73,9 +73,9 @@
         margin-bottom 0
         > *
           padding-right 1rem
-        .category
-          text-decoration underline
         .tag
+          text-decoration underline
+        .label
           padding-left 5px
 
 

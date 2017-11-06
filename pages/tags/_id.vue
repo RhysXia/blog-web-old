@@ -1,13 +1,13 @@
 <template lang="pug">
-  .category
-    .panel
-      .name {{category.name}}
-      .desc {{category.description}}
+  .tag
+    .panel(:style="'background-image:url('+tag.poster+')'")
+      .name {{tag.name}}
+      .desc {{tag.description}}
     ArticleList(:hasMore="hasMore",:articles="articles",v-model="isLoading",@on-load="onLoad")
 </template>
 <script>
   import ArticleApi from '~/api/article-api'
-  import CategoryApi from '~/api/category-api'
+  import TagApi from '~/api/tag-api'
   import ArticleList from '~/components/article-list'
 
   export default {
@@ -22,22 +22,22 @@
         pageSize: 7,
         id: id
       }
-      await ArticleApi.getArticlesByCategoryId(id, data.currentPage, data.pageSize).then(res => {
+      await ArticleApi.getArticlesByTagId(id, data.currentPage, data.pageSize).then(res => {
         if (res.data.code === 0) {
-          data.articles = res.data.data
-          if (data.currentPage >= res.data.pagination.totalPage) {
+          data.articles = res.data.result.data
+          data.currentPage++
+          if (data.currentPage >= res.data.result.totalPages) {
             data.hasMore = false
           }
-          data.currentPage++
         } else {
           data.articles = []
         }
       })
-      await CategoryApi.getCategoryById(id).then(res => {
+      await TagApi.getTagById(id).then(res => {
         if (res.data.code === 0) {
-          data.category = res.data.data
+          data.tag = res.data.result
         } else {
-          data.category = {}
+          data.tag = {}
         }
       })
       return data
@@ -49,15 +49,15 @@
     },
     methods: {
       onLoad () {
-        ArticleApi.getArticlesByCategoryId(this.id, this.currentPage, this.pageSize, false).then(res => {
+        ArticleApi.getArticlesByTagId(this.id, this.currentPage, this.pageSize).then(res => {
           if (res.data.code === 0) {
-            res.data.data.forEach(item => {
+            res.data.result.data.forEach(item => {
               this.articles.push(item)
             })
-            if (this.currentPage >= res.data.pagination.totalPage) {
+            this.currentPage++
+            if (this.currentPage >= res.data.result.totalPages) {
               this.hasMore = false
             }
-            this.currentPage++
           }
           this.isLoading = false
         })
@@ -69,15 +69,16 @@
   }
 </script>
 <style lang="stylus" scoped>
-  .category
+  .tag
     .panel
-      background-color #fff
+      background-size cover
       height 230px
       margin-bottom 1rem
       display flex
       flex-direction column
       align-items center
       justify-content center
+      color #2294EA
       .name
         font-size 16px
         font-weight bold

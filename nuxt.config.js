@@ -1,5 +1,6 @@
 module.exports = {
   plugins: [
+    '~/plugins/main',
     {src: '~/plugins/iview', ssr: true}
   ],
   /*

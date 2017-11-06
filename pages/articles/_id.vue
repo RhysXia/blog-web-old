@@ -4,21 +4,23 @@
       .header
         h1.title {{article.title}}
         .info
-          .author
-            Icon(type="person")
-            | {{article.author.nickname}}
           .updateDate
             Icon(type="ios-clock")
-            | {{article.updateDate}}
+            | {{article.updateDate | formatDate}}
           .read
             Icon(type="ios-book")
             | {{article.readNum}}
           .praise
             Icon(type="ios-heart")
             | {{article.praiseNum}}
-          .category
+        .info
+          .author
+            Icon(type="person")
+            nuxt-link(:to="'/users/'+article.author.id")
+              | {{article.author.nickname}}
+          .tags
             Icon(type="ios-pricetag")
-            | {{article.category.name}}
+            nuxt-link.tag(:to="'/tags/'+tag.id",v-for="(tag,index) in article.tags",:key="index") {{tag.name}}
       .content(v-html="article.content")
     .comment-list
       h3.title 评论列表
@@ -43,6 +45,7 @@
   import CommentApi from '~/api/comment-api'
   import highlight from 'highlight.js'
   import 'highlight.js/styles/idea.css'
+  import NuxtLink from '../../.nuxt/components/nuxt-link'
 
   marked.setOptions({
     highlight: (code) => {
@@ -51,23 +54,24 @@
   })
 
   export default {
+    components: {NuxtLink},
     validate ({params}) {
       return /^\d+$/.test(params.id)
     },
     async asyncData ({params}) {
       const data = {}
       const id = params.id
-      await ArticleApi.getArticleById(id, true, true, true).then(res => {
+      await ArticleApi.getArticleById(id).then(res => {
         if (res.data.code === 0) {
-          data.article = res.data.data
+          data.article = res.data.result
           data.article.content = marked(data.article.content)
         } else {
           data.article = {}
         }
       })
-      await CommentApi.getCommentsByArticleId(id, 0, 10, true).then(res => {
+      await CommentApi.getCommentsByArticleId(id, 0, 10).then(res => {
         if (res.data.code === 0) {
-          data.comments = res.data.data
+          data.comments = res.data.result.data
         } else {
           data.commments = []
         }
@@ -89,21 +93,32 @@
         .title
           width 100%
           text-align center
+          margin-bottom 5px
         .info
-          display flex
-          flex-direction row
-          align-items center
-          justify-content center
           font-size 16px
+          text-align right
           > *
+            display inline-block
             padding 0 10px
             i
               padding-right 5px
-          .category
           .author
             cursor pointer
+            a
+              color #eee
+              &:hover
+                color #2294EA
             &:hover
               text-decoration underline
+          .tags
+            .tag
+              padding-right 5px
+              color #eee
+              &:hover
+                color #2294EA
+                text-decoration underline
+            &:last-child
+              padding-right 0
           .praise
             cursor pointer
       .content

@@ -22,20 +22,20 @@
         currentPage: 0,
         pageSize: 7
       }
-      await articleApi.getRecomArticles(0, 6).then(res => {
+      await articleApi.getArticles(0, 6).then(res => {
         if (res.data.code === 0) {
-          data.recommendations = res.data.data
+          data.recommendations = res.data.result.data
         } else {
           data.recommendations = []
         }
       })
-      await articleApi.getArticles(data.currentPage, data.pageSize, true).then(res => {
+      await articleApi.getArticles(data.currentPage, data.pageSize).then(res => {
         if (res.data.code === 0) {
-          data.articles = res.data.data
-          if (data.currentPage >= res.data.pagination.totalPage) {
+          data.articles = res.data.result.data
+          data.currentPage++
+          if (data.currentPage >= res.data.result.totalPages) {
             data.hasMore = false
           }
-          data.currentPage++
         } else {
           data.articles = []
         }
@@ -50,15 +50,15 @@
     },
     methods: {
       onLoad () {
-        articleApi.getArticles(this.currentPage, this.pageSize, true).then(res => {
+        articleApi.getArticles(this.currentPage, this.pageSize).then(res => {
           if (res.data.code === 0) {
-            res.data.data.forEach(item => {
+            res.data.result.data.forEach(item => {
               this.articles.push(item)
             })
-            if (this.currentPage >= res.data.pagination.totalPage) {
+            this.currentPage++
+            if (this.currentPage >= res.data.result.totalPages) {
               this.hasMore = false
             }
-            this.currentPage++
           }
           this.isLoading = false
         })
