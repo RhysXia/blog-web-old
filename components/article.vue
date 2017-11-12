@@ -9,7 +9,7 @@
       .info
         .data
           Icon(type="ios-clock")
-          span.label {{article.updateDate}}
+          span.label {{article.updateDate | formatDate}}
         .read
           Icon(type="ios-book")
           span.label {{article.readNum}}
